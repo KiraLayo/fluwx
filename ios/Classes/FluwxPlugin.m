@@ -56,6 +56,8 @@ BOOL handleOpenURLByFluwx = YES;
         [self handleAutoDeductWithCall:call result:result];
     } else if ([call.method hasPrefix:@"share"]) {
         [_fluwxShareHandler handleShare:call result:result];
+    } else if ([@"chooseInvoice" isEqualToString:call.method]) {
+        [self handleChooseInvoiceWithCall:call result:result];
     } else {
         result(FlutterMethodNotImplemented);
     }
@@ -87,6 +89,18 @@ BOOL handleOpenURLByFluwx = YES;
 
 - (void)checkWeChatInstallation:(FlutterMethodCall *)call result:(FlutterResult)result {
     result(@([WXApi isWXAppInstalled]));
+}
+
+- (void)handleChooseInvoiceWithCall:(FlutterMethodCall *)call result:(FlutterResult)result {
+    [WXApiRequestHandler 
+    chooseInvoice:call.arguments[@"appid"]
+    cardSign:call.arguments[@"cardSign"]
+    nonceStr:call.arguments[@"nonceStr"]
+    signType:call.arguments[@"signType"]
+    timestamp:[call.arguments[@"timeStamp"] unsignedIntValue]
+    completion:^(BOOL done) {
+        result(@(done));
+    }];
 }
 
 - (void)handlePayment:(FlutterMethodCall *)call result:(FlutterResult)result {

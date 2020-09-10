@@ -6,6 +6,8 @@ import com.tencent.mm.opensdk.modelbiz.SubscribeMessage
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
 import com.tencent.mm.opensdk.modelbiz.WXOpenBusinessWebview
 import com.tencent.mm.opensdk.modelpay.PayReq
+import com.tencent.mm.opensdk.modelbiz.ChooseCardFromWXCardPackage
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -53,6 +55,7 @@ public class FluwxPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             call.method == "authByQRCode" -> authHandler?.authByQRCode(call, result)
             call.method == "stopAuthByQRCode" -> authHandler?.stopAuthByQRCode(result)
             call.method == "payWithFluwx" -> pay(call, result)
+            call.method == "chooseInvoice" -> chooseInvoice(call, result)
             call.method == "payWithHongKongWallet" -> payWithHongKongWallet(call, result)
             call.method == "launchMiniProgram" -> launchMiniProgram(call, result)
             call.method == "subscribeMsg" -> subScribeMsg(call, result)
@@ -63,7 +66,7 @@ public class FluwxPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             else -> result.notImplemented()
         }
     }
-
+    
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         shareHandler?.onDestroy()
         authHandler?.removeAllListeners()
@@ -85,6 +88,28 @@ public class FluwxPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onDetachedFromActivityForConfigChanges() {
     }
 
+
+    private fun chooseInvoice(call: MethodCall, result: MethodChannel.Result) {
+
+        if (WXAPiHandler.wxApi == null) {
+            result.error("Unassigned WxApi", "please config  wxapi first", null)
+            return
+        } else {
+
+            ChooseCardFromWXCardPackage.Req req = new ChooseCardFromWXCardPackage.Req();
+            req.appId = call.argument("appId");
+            req.timeStamp = call.argument("timeStamp");
+            req.nonceStr = call.argument("nonceStr");
+            req.cardSign = call.argument("cardSign");
+            req.signType = call.argument("signType");
+            
+            req.cardType = call.argument("cardType");
+            req.canMultiSelect = call.argument("canMultiSelect");
+            
+            val done = WXAPiHandler.wxApi?.sendReq(req)
+            result.success(done)
+        }
+    }
 
     private fun pay(call: MethodCall, result: MethodChannel.Result) {
 

@@ -97,6 +97,17 @@ FlutterMethodChannel *fluwxMethodChannel = nil;
             WXChooseInvoiceResp *chooseInvoiceResp = (WXChooseInvoiceResp *) resp;
             [_delegate managerDidRecvChooseInvoiceResponse:chooseInvoiceResp];
         }
+
+        WXChooseInvoiceResp *chooseInvoiceResp = (WXChooseInvoiceResp *)resp;
+        NSDictionary *result = @{
+            description: chooseInvoiceResp.description == nil ? @"" : chooseInvoiceResp.description,
+            errStr: chooseInvoiceResp.errStr == nil ? @"" : chooseInvoiceResp.errStr,
+            errCode: @(chooseInvoiceResp.errCode),
+            type: @(chooseInvoiceResp.type),
+            @"cardAry": chooseInvoiceResp.cardAry == nil ? @"" : chooseInvoiceResp.cardAry
+        };
+        [fluwxMethodChannel invokeMethod:@"onChooseInvoiceResponse" arguments:result];
+        
     } else if ([resp isKindOfClass:[WXSubscribeMsgResp class]]) {
         if ([_delegate respondsToSelector:@selector(managerDidRecvSubscribeMsgResponse:)]) {
             [_delegate managerDidRecvSubscribeMsgResponse:(WXSubscribeMsgResp *) resp];

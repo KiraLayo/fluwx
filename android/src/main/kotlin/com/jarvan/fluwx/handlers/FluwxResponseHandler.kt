@@ -19,6 +19,7 @@ import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelbiz.SubscribeMessage
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
 import com.tencent.mm.opensdk.modelbiz.WXOpenBusinessWebview
+import com.tencent.mm.opensdk.modelbiz.ChooseCardFromWXCardPackage
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelpay.PayResp
@@ -41,10 +42,18 @@ object FluwxResponseHandler {
             is SendAuth.Resp -> handleAuthResponse(response)
             is SendMessageToWX.Resp -> handleSendMessageResp(response)
             is PayResp -> handlePayResp(response)
+            is ChooseCardFromWXCardPackage.Resp -> handleChooseInvoiceResponse(response)
             is WXLaunchMiniProgram.Resp -> handleLaunchMiniProgramResponse(response)
             is SubscribeMessage.Resp -> handleSubscribeMessage(response)
             is WXOpenBusinessWebview.Resp -> handlerWXOpenBusinessWebviewResponse(response)
         }
+    }
+
+    private fun handleChooseInvoiceResponse(response: ChooseCardFromWXCardPackage.Resp) {
+        val result = mapOf(
+                "cardAry" to response.cardItemList,
+                type to response.type)
+        channel?.invokeMethod("onChooseInvoiceResponse", result)
     }
 
     private fun handleSubscribeMessage(response: SubscribeMessage.Resp) {

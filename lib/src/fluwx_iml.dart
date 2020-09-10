@@ -94,6 +94,33 @@ Future<bool> shareToWeChat(WeChatShareBaseModel model) async {
   }
 }
 
+Future<bool> chooseInvoiceFromWeChat({
+  @required String appid,
+  @required String cardSign,
+  @required String nonceStr,
+  @required String signType,
+  @required String timestamp,
+  String cardType = "INVOICE",
+  String canMultiSelect = "1"
+  // String 
+}) async {
+  assert(appid != null && appid.trim().isNotEmpty);
+  assert(cardSign != null && cardSign.trim().isNotEmpty);
+  assert(nonceStr != null && nonceStr.trim().isNotEmpty);
+  assert(signType != null && signType.trim().isNotEmpty);
+  assert(timestamp != null && timestamp.trim().isNotEmpty);
+  return await _channel
+  .invokeMethod("chooseInvoice", {
+    "appid": appid, 
+    "cardSign": cardSign,
+    "nonceStr": nonceStr,
+    "signType": signType,
+    "timestamp": timestamp,
+    "cardType": cardType,
+    "canMultiSelect": canMultiSelect
+  });
+}
+
 /// The WeChat-Login is under Auth-2.0
 /// This method login with native WeChat app.
 /// For users without WeChat app, please use [authByQRCode] instead

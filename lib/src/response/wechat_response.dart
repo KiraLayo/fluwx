@@ -25,6 +25,7 @@ const String _errStr = "errStr";
 typedef BaseWeChatResponse _WeChatResponseInvoker(Map argument);
 
 Map<String, _WeChatResponseInvoker> _nameAndResponseMapper = {
+  "onChooseInvoiceResponse": (Map argument) => WeChatChooseInvoiceResponse.fromMap(argument),
   "onShareResponse": (Map argument) => WeChatShareResponse.fromMap(argument),
   "onAuthResponse": (Map argument) => WeChatAuthResponse.fromMap(argument),
   "onLaunchMiniProgramResponse": (Map argument) =>
@@ -53,6 +54,16 @@ class BaseWeChatResponse {
   /// create response from response pool
   factory BaseWeChatResponse.create(String name, Map argument) =>
       _nameAndResponseMapper[name](argument);
+}
+
+class WeChatChooseInvoiceResponse extends BaseWeChatResponse {
+  final int type;
+  final List cardAry;
+
+  WeChatChooseInvoiceResponse.fromMap(Map map)
+      : type = map["type"],
+        cardAry = map["cardAry"],
+        super._(map[_errCode], map[_errStr]);
 }
 
 class WeChatShareResponse extends BaseWeChatResponse {
