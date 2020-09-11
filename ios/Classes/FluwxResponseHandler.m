@@ -99,12 +99,25 @@ FlutterMethodChannel *fluwxMethodChannel = nil;
         }
 
         WXChooseInvoiceResp *chooseInvoiceResp = (WXChooseInvoiceResp *)resp;
+
+        NSMutableArray<NSDictionary *> *cardAry = [NSMutableArray array];
+        
+        for (WXInvoiceItem *item in chooseInvoiceResp.cardAry) {
+            [cardAry addObject:@{
+                @"cardId": item.cardId,
+                @"extMsg": item.extMsg == nil ? @"" : item.extMsg,
+                @"cardState"; @(item.cardState),
+                @"encryptCode": item.encryptCode,
+                @"appID": item.appID
+            }];
+        }
+
         NSDictionary *result = @{
             description: chooseInvoiceResp.description == nil ? @"" : chooseInvoiceResp.description,
             errStr: chooseInvoiceResp.errStr == nil ? @"" : chooseInvoiceResp.errStr,
             errCode: @(chooseInvoiceResp.errCode),
             type: @(chooseInvoiceResp.type),
-            @"cardAry": chooseInvoiceResp.cardAry == nil ? @"" : chooseInvoiceResp.cardAry
+            @"cardAry": chooseInvoiceResp.cardAry == nil ? @"" : cardAry
         };
         [fluwxMethodChannel invokeMethod:@"onChooseInvoiceResponse" arguments:result];
         
