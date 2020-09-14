@@ -106,7 +106,7 @@ FlutterMethodChannel *fluwxMethodChannel = nil;
             [cardAry addObject:@{
                 @"cardId": item.cardId,
                 @"extMsg": item.extMsg == nil ? @"" : item.extMsg,
-                @"cardState"; @(item.cardState),
+                @"cardState": @(item.cardState),
                 @"encryptCode": item.encryptCode,
                 @"appID": item.appID
             }];
