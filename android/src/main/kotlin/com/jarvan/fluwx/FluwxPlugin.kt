@@ -95,8 +95,7 @@ public class FluwxPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             result.error("Unassigned WxApi", "please config  wxapi first", null)
             return
         } else {
-
-            ChooseCardFromWXCardPackage.Req req = new ChooseCardFromWXCardPackage.Req();
+            var req = ChooseCardFromWXCardPackage.Req();
             req.appId = call.argument("appId");
             req.timeStamp = call.argument("timeStamp");
             req.nonceStr = call.argument("nonceStr");
