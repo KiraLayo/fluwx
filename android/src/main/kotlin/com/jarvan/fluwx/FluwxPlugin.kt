@@ -97,7 +97,7 @@ public class FluwxPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         } else {
             var req = ChooseCardFromWXCardPackage.Req();
             req.appId = call.argument("appId");
-            req.timeStamp = call.argument("timestamp");
+            req.timeStamp = call.argument("timeStamp");
             req.nonceStr = call.argument("nonceStr");
             req.cardSign = call.argument("cardSign");
             req.signType = call.argument("signType");
