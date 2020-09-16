@@ -93,7 +93,7 @@ BOOL handleOpenURLByFluwx = YES;
 
 - (void)handleChooseInvoiceWithCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     [WXApiRequestHandler 
-    chooseInvoice:call.arguments[@"appid"]
+    chooseInvoice:call.arguments[@"appId"]
     cardSign:call.arguments[@"cardSign"]
     nonceStr:call.arguments[@"nonceStr"]
     signType:call.arguments[@"signType"]
