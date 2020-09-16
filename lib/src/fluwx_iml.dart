@@ -95,7 +95,7 @@ Future<bool> shareToWeChat(WeChatShareBaseModel model) async {
 }
 
 Future<bool> chooseInvoiceFromWeChat({
-  @required String appid,
+  @required String appId,
   @required String cardSign,
   @required String nonceStr,
   @required String signType,
@@ -104,14 +104,14 @@ Future<bool> chooseInvoiceFromWeChat({
   String canMultiSelect = "1"
   // String 
 }) async {
-  assert(appid != null && appid.trim().isNotEmpty);
+  assert(appId != null && appId.trim().isNotEmpty);
   assert(cardSign != null && cardSign.trim().isNotEmpty);
   assert(nonceStr != null && nonceStr.trim().isNotEmpty);
   assert(signType != null && signType.trim().isNotEmpty);
   assert(timestamp != null && timestamp.trim().isNotEmpty);
   return await _channel
   .invokeMethod("chooseInvoice", {
-    "appid": appid, 
+    "appId": appId,
     "cardSign": cardSign,
     "nonceStr": nonceStr,
     "signType": signType,
