@@ -97,7 +97,7 @@ BOOL handleOpenURLByFluwx = YES;
     cardSign:call.arguments[@"cardSign"]
     nonceStr:call.arguments[@"nonceStr"]
     signType:call.arguments[@"signType"]
-    timestamp:[call.arguments[@"timestamp"] unsignedIntValue]
+    timestamp:[call.arguments[@"timeStamp"] unsignedIntValue]
     completion:^(BOOL done) {
         result(@(done));
     }];
