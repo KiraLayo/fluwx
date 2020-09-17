@@ -58,7 +58,7 @@ class BaseWeChatResponse {
 
 class WeChatChooseInvoiceResponse extends BaseWeChatResponse {
   final int type;
-  final String cardAry;
+  final List cardAry;
   final String cardItemList;
 
   WeChatChooseInvoiceResponse.fromMap(Map map)
