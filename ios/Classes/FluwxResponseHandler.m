@@ -104,11 +104,9 @@ FlutterMethodChannel *fluwxMethodChannel = nil;
         
         for (WXInvoiceItem *item in chooseInvoiceResp.cardAry) {
             [cardAry addObject:@{
-                @"cardId": item.cardId,
-                @"extMsg": item.extMsg == nil ? @"" : item.extMsg,
-                @"cardState": @(item.cardState),
-                @"encryptCode": item.encryptCode,
-                @"appID": item.appID
+                @"card_id": item.cardId,
+                @"encrypt_code": item.encryptCode,
+                @"app_id": item.appID
             }];
         }
 
