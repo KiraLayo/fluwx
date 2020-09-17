@@ -115,7 +115,7 @@ Future<bool> chooseInvoiceFromWeChat({
     "cardSign": cardSign,
     "nonceStr": nonceStr,
     "signType": signType,
-    "timeStamp": timestamp,
+    "timestamp": timestamp,
     "cardType": cardType,
     "canMultiSelect": canMultiSelect
   });

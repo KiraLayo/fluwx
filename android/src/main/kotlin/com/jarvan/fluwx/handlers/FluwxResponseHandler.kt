@@ -51,7 +51,7 @@ object FluwxResponseHandler {
 
     private fun handleChooseInvoiceResponse(response: ChooseCardFromWXCardPackage.Resp) {
         val result = mapOf(
-            "cardAry" to response.cardItemList,
+            "cardItemList" to response.cardItemList,
             errStr to response.errStr,
             errCode to response.errCode,
             type to response.type)
