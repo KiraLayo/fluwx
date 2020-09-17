@@ -59,10 +59,12 @@ class BaseWeChatResponse {
 class WeChatChooseInvoiceResponse extends BaseWeChatResponse {
   final int type;
   final String cardAry;
+  final String cardItemList;
 
   WeChatChooseInvoiceResponse.fromMap(Map map)
       : type = map["type"],
-        cardAry = map["cardAry"],
+        cardItemList = map["cardItemList"], // android
+        cardAry = map["cardAry"],// ios
         super._(map[_errCode], map[_errStr]);
 }
 
